@@ -1,14 +1,11 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import SearchIcon from "@mui/icons-material/Search";
-import { SxProps, Theme } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { Delete, Search } from "lucide-react";
 import { motion } from "motion/react";
-import { type SearchHistoryItemType } from "../../types";
+
+import { Button } from "@/components/ui/button";
+import { type SearchHistoryItemType } from "@/types";
+import { Tooltip } from "../Tooltip/Tooltip";
 
 interface SearchHistoryItemProps {
   searchHistoryItem: SearchHistoryItemType;
@@ -18,12 +15,11 @@ interface SearchHistoryItemProps {
 
 dayjs.extend(relativeTime);
 
-const iconButtonStyle: SxProps<Theme> = {
-  backgroundColor: "bg.itemIconButton",
-  borderWidth: "2px",
-  borderStyle: "solid",
-  borderColor: "border.itemIconButton",
-};
+// TODO
+// const iconButtonStyle: SxProps<Theme> = {
+//   backgroundColor: "bg.itemIconButton",
+//   borderColor: "border.itemIconButton",
+// };
 
 export const SearchHistoryItem = ({
   searchHistoryItem: { city, country, datetime, id },
@@ -42,67 +38,52 @@ export const SearchHistoryItem = ({
   };
 
   return (
-    <Stack
-      direction="row"
-      width="100%"
-      alignItems="center"
-      gap={1}
-      sx={{
-        px: 2,
-        py: 1,
-        backgroundColor: "bg.item",
-        borderRadius: "16px",
-        width: "100%",
-        boxSizing: "border-box",
-      }}
-      component={motion.div}
+    <motion.div
+      className="flex w-full items-center gap-1 px-2 py-1 rounded-md"
+      // TODO
+      // sx={{
+      //   backgroundColor: "bg.item",
+      // }}
       layout
     >
-      <Stack
-        marginRight="auto"
-        width="100%"
-        direction={{
-          md: "row",
-          sx: "column",
-        }}
-      >
-        <Typography
-          sx={{
-            typography: {
-              md: "body1",
-              xs: "body2",
-            },
-          }}
-        >
+      <div className="flex w-full sm:flex-col md:flex-row mr-auto">
+        <p className="sm:text-sm md:text-base">
           {city}, {country}
-        </Typography>
-        <Typography
-          marginLeft={{ md: "auto" }}
-          sx={{
-            color: "font.itemInfo",
-            typography: {
-              md: "body2",
-              xs: "caption",
-            },
-          }}
+        </p>
+        <p
+          className="sm:text-sm md:text-base md:mr-auto"
+          // TODO
+          // sx={{
+          //   color: "font.itemInfo",
+          // }}
         >
           {dayjs(datetime).diff(dayjs(), "day") >= 2
             ? dayjs(datetime).format("DD-MM-YYYY hh:mmA")
             : dayjs(datetime).fromNow()}
-        </Typography>
-      </Stack>
-      <Stack direction="row" gap={1}>
-        <Tooltip title="Search" disableInteractive>
-          <IconButton size="small" onClick={handleSearch} sx={iconButtonStyle}>
-            <SearchIcon />
-          </IconButton>
+        </p>
+      </div>
+      <div className="flex gap-1">
+        <Tooltip title="Search">
+          <Button
+            className="border-2"
+            variant="outline"
+            size="icon"
+            onClick={handleSearch}
+          >
+            <Search />
+          </Button>
         </Tooltip>
-        <Tooltip title="Delete" disableInteractive>
-          <IconButton size="small" onClick={handleDelete} sx={iconButtonStyle}>
-            <DeleteIcon />
-          </IconButton>
+        <Tooltip title="Delete">
+          <Button
+            className="border-2"
+            variant="outline"
+            size="icon"
+            onClick={handleDelete}
+          >
+            <Delete />
+          </Button>
         </Tooltip>
-      </Stack>
-    </Stack>
+      </div>
+    </motion.div>
   );
 };
