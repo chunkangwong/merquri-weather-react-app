@@ -1,5 +1,5 @@
-import Stack from "@mui/material/Stack";
 import { useEffect } from "react";
+
 import { SearchBar } from "./components/SearchBar/SearchBar";
 import { SearchHistory } from "./components/SearchHistory";
 import { ThemeProvider } from "./components/ThemeProvider";
@@ -43,26 +43,19 @@ function App() {
   return (
     <ThemeProvider>
       <SearchBar onSearch={handleSearch} />
-      <Stack
-        alignItems="center"
-        justifyContent="center"
-        width={{ md: "50%", xs: "80%" }}
-        p={4}
-        mt={14}
-        sx={{
-          backgroundColor: "bg.panel",
-          borderRadius: { xs: "24px", md: "40px" },
-          borderColor: "border.panel",
-          borderWidth: "1px",
-          borderStyle: "solid",
-        }}
+      <div
+        className="flex items-center justify-center sm:w-1/2 md:w-[80%] p-4 mt-14 sm:rounded-md md:rounded-lg border-1 border-solid"
+        // sx={{
+        //   backgroundColor: "bg.panel",
+        //   borderColor: "border.panel",
+        // }}
       >
         <WeatherHeader
           loading={queryWeather.isPending}
           weatherData={queryWeather.data}
         />
         <SearchHistory onSearch={handleSearch} />
-      </Stack>
+      </div>
     </ThemeProvider>
   );
 }
