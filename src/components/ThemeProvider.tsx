@@ -1,57 +1,36 @@
-import Brightness4 from "@mui/icons-material/Brightness4";
-import Brightness7 from "@mui/icons-material/Brightness7";
-import { ThemeProvider as MUIThemeProvider } from "@mui/material";
-import CssBaseline from "@mui/material/CssBaseline";
-import Fab from "@mui/material/Fab";
-import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
-import { useDarkMode } from "../hooks/useDarkMode";
-import { darkTheme, lightTheme } from "../theme";
+import { Moon } from "lucide-react";
+
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { Button } from "@/components/ui/button";
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-  const { darkMode, toggle } = useDarkMode();
+  const { toggle } = useDarkMode();
 
   return (
-    <MUIThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <CssBaseline />
-      <Tooltip title={darkMode ? "Light" : "Dark"}>
-        <Fab
-          color="primary"
+    <div className="flex items-center min-h-[100vh] py-2 bg-cover bg-center bg-scroll bg-no-repeat  bg-[url(bg-light.png)] dark:bg-[url(bg-dark.png)]">
+      {children}
+      <Tooltip title="Dark">
+        <Button
+          className="fixed bottom-20 right-20 text-white"
+          variant="outline"
+          size="icon"
           onClick={toggle}
-          sx={{
-            position: "fixed",
-            bottom: 20,
-            right: 20,
-            backgroundColor: "bg.themeToggleButton",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "rgba(255,255,255,0.08)",
-            },
-          }}
+          // TODO
+          // sx={{
+          //   backgroundColor: "bg.themeToggleButton",
+          //   "&:hover": {
+          //     backgroundColor: "rgba(255,255,255,0.08)",
+          //   },
+          // }}
         >
-          {darkMode ? <Brightness7 /> : <Brightness4 />}
-        </Fab>
+          <Moon />
+        </Button>
       </Tooltip>
-      <Stack
-        minHeight="100vh"
-        alignItems="center"
-        py={2}
-        sx={{
-          backgroundImage: `url('${
-            darkMode ? "bg-dark.png" : "bg-light.png"
-          }')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "scroll",
-        }}
-      >
-        {children}
-      </Stack>
-    </MUIThemeProvider>
+    </div>
   );
 };

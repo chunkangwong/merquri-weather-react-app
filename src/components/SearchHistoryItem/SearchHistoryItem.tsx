@@ -3,9 +3,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { Delete, Search } from "lucide-react";
 import { motion } from "motion/react";
 
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Button } from "@/components/ui/button";
 import { type SearchHistoryItemType } from "@/types";
-import { Tooltip } from "../Tooltip/Tooltip";
 
 interface SearchHistoryItemProps {
   searchHistoryItem: SearchHistoryItemType;
