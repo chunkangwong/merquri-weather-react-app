@@ -124,14 +124,7 @@ const MotionSkeleton = ({ variant = "text" }: MotionSkeletonProps) => {
       exit={{ opacity: 0, transition: { duration: 0.3 } }}
       className="w-full"
     >
-      <Skeleton
-        className={cn(
-          "w-full",
-          variant === "text"
-            ? "sm:text-sm md:text-base"
-            : "sm:text-xl md:text-2xl"
-        )}
-      />
+      <Skeleton className={cn("w-full", variant === "text" ? "h-4" : "h-20")} />
     </motion.div>
   );
 };
