@@ -1,10 +1,9 @@
-import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import { SearchHistoryItemType } from "../../types";
-import { SearchHistoryItem } from "../SearchHistoryItem/SearchHistoryItem";
+import { ListX } from "lucide-react";
+
+import { SearchHistoryItem } from "@/components/SearchHistoryItem/SearchHistoryItem";
+import { Tooltip } from "@/components/Tooltip/Tooltip";
+import { Button } from "@/components/ui/button";
+import { type SearchHistoryItemType } from "@/types";
 
 interface SearchHistoryListProps {
   searchHistoryItems: SearchHistoryItemType[];
@@ -20,24 +19,20 @@ export const SearchHistoryList = ({
   onSearch,
 }: SearchHistoryListProps) => {
   return (
-    <Stack
-      gap={2}
-      sx={{
-        borderRadius: "16px",
-        backgroundColor: "bg.panel",
-        padding: 2,
-        width: "100%",
-        mt: 2,
-      }}
+    <div
+      className="flex flex-col gap-2 rounded-md p-2 w-full mt-2"
+      // sx={{
+      //   backgroundColor: "bg.panel",
+      // }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography>Search History</Typography>
-        <Tooltip title="Delete All" disableInteractive>
-          <IconButton size="small" onClick={onDeleteAll}>
-            <DeleteSweepIcon />
-          </IconButton>
+      <div className="flex justify-between items-center">
+        <p>Search History</p>
+        <Tooltip title="Delete All">
+          <Button variant="outline" size="icon" onClick={onDeleteAll}>
+            <ListX />
+          </Button>
         </Tooltip>
-      </Stack>
+      </div>
       {searchHistoryItems.map((searchHistoryItem) => (
         <SearchHistoryItem
           key={searchHistoryItem.id}
@@ -46,6 +41,6 @@ export const SearchHistoryList = ({
           onSearch={onSearch}
         />
       ))}
-    </Stack>
+    </div>
   );
 };
