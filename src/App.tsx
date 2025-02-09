@@ -42,19 +42,21 @@ function App() {
 
   return (
     <ThemeProvider>
-      <SearchBar onSearch={handleSearch} />
-      <div
-        className="flex items-center justify-center sm:w-1/2 md:w-[80%] p-4 mt-14 sm:rounded-md md:rounded-lg border-1 border-solid"
-        // sx={{
-        //   backgroundColor: "bg.panel",
-        //   borderColor: "border.panel",
-        // }}
-      >
-        <WeatherHeader
-          loading={queryWeather.isPending}
-          weatherData={queryWeather.data}
-        />
-        <SearchHistory onSearch={handleSearch} />
+      <div className="flex items-center min-h-[100vh] py-2 bg-cover bg-center bg-scroll bg-no-repeat  bg-[url(bg-light.png)] dark:bg-[url(bg-dark.png)]">
+        <SearchBar onSearch={handleSearch} />
+        <div
+          className="flex items-center justify-center sm:w-1/2 md:w-[80%] p-4 mt-14 sm:rounded-md md:rounded-lg border-1 border-solid"
+          // sx={{
+          //   backgroundColor: "bg.panel",
+          //   borderColor: "border.panel",
+          // }}
+        >
+          <WeatherHeader
+            loading={queryWeather.isPending}
+            weatherData={queryWeather.data}
+          />
+          <SearchHistory onSearch={handleSearch} />
+        </div>
       </div>
     </ThemeProvider>
   );
