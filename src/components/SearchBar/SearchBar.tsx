@@ -1,21 +1,15 @@
-import ClearIcon from "@mui/icons-material/Clear";
-import SearchIcon from "@mui/icons-material/Search";
-import { SxProps, Theme, useMediaQuery, useTheme } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
-import { FormValues } from "../../types";
+import { Search, X } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { FormValues } from "@/types";
+import { Tooltip } from "../Tooltip/Tooltip";
+import { Input } from "../ui/input";
 
 interface SearchBarProps {
   onSearch: (formValues: FormValues) => void;
 }
-
-const iconButtonStyle: SxProps<Theme> = {
-  borderRadius: { xs: "8px", md: "25%" },
-  backgroundColor: "bg.searchIconButton",
-  color: "white",
-};
 
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,27 +24,23 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
   };
 
   return (
-    <Stack
-      direction="row"
-      gap={1}
-      alignItems="center"
-      width={{ md: "50%", xs: "80%" }}
-      component="form"
+    <form
+      className="flex gap-1 items-center xs:w-[80%] md:w-1/2"
       onSubmit={handleSubmit}
     >
       <SearchBarTextField label="City" name="city" />
       <SearchBarTextField label="Country" name="country" />
-      <Tooltip title="Clear" disableInteractive>
-        <IconButton type="reset" sx={iconButtonStyle}>
-          <ClearIcon />
-        </IconButton>
+      <Tooltip title="Clear">
+        <Button variant="outline" size="icon" type="reset">
+          <X />
+        </Button>
       </Tooltip>
-      <Tooltip title="Search" disableInteractive>
-        <IconButton type="submit" sx={iconButtonStyle}>
-          <SearchIcon />
-        </IconButton>
+      <Tooltip title="Search">
+        <Button variant="outline" size="icon" type="submit">
+          <Search />
+        </Button>
       </Tooltip>
-    </Stack>
+    </form>
   );
 };
 
@@ -60,28 +50,30 @@ interface SearchBarTextFieldProps {
 }
 
 const SearchBarTextField = ({ label, name }: SearchBarTextFieldProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [focused, setFocused] = useState(false);
+  const [value, setValue] = useState("");
 
   return (
-    <TextField
-      label={label}
-      variant="filled"
-      required
-      name={name}
-      size={isMobile ? "small" : "medium"}
-      slotProps={{
-        input: {
-          disableUnderline: true,
-        },
-      }}
-      sx={{
-        "& .MuiFilledInput-root": {
-          borderRadius: { xs: "8px", md: "20px" },
-          backgroundColor: "bg.textField",
-        },
-        flexGrow: 1,
-      }}
-    />
+    <div className="relative w-full flex-grow">
+      <label
+        className={cn(
+          "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base transition-all",
+          (focused || value) && "top-2 text-xs text-gray-700"
+        )}
+      >
+        {label}
+      </label>
+      <Input
+        className={cn(
+          "w-full bg-gray-100 pt-5 pb-2 px-3 rounded-md border-none outline-none",
+          "focus:ring-0 focus:border-b-2 focus:border-blue-500"
+        )}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+        name={name}
+      />
+    </div>
   );
 };
