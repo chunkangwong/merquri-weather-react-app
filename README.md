@@ -1,6 +1,6 @@
 # merquri-weather-react-app
 
-A weather application built with TypeScript React, Zustand, React Query, MUI, Framer Motion and Vite.
+A weather application built with TypeScript React, Zustand, React Query, shadcn-ui, Framer Motion and Vite.
 
 ## Instructions to setup development environment
 

@@ -1,47 +1,4 @@
-import { createTheme } from "@mui/material";
-
-declare module "@mui/material/styles" {
-  interface Palette {
-    bg: {
-      item: string;
-      panel: string;
-      textField: string;
-      searchIconButton: string;
-      itemIconButton: string;
-      themeToggleButton: string;
-    };
-    border: {
-      itemIconButton: string;
-      panel: string;
-    };
-    font: {
-      info: string;
-      temp: string;
-      itemInfo: string;
-    };
-  }
-  interface PaletteOptions {
-    bg?: {
-      item: string;
-      panel: string;
-      textField: string;
-      searchIconButton: string;
-      itemIconButton: string;
-      themeToggleButton: string;
-    };
-    border?: {
-      itemIconButton: string;
-      panel: string;
-    };
-    font?: {
-      info: string;
-      temp: string;
-      itemInfo: string;
-    };
-  }
-}
-
-export const lightTheme = createTheme({
+export const lightTheme = {
   palette: {
     mode: "light",
     bg: {
@@ -62,9 +19,9 @@ export const lightTheme = createTheme({
       itemInfo: "rgba(0, 0, 0, 1)",
     },
   },
-});
+};
 
-export const darkTheme = createTheme({
+export const darkTheme = {
   palette: {
     mode: "dark",
     bg: {
@@ -85,4 +42,4 @@ export const darkTheme = createTheme({
       itemInfo: "rgba(255, 255, 255, 0.5)",
     },
   },
-});
+};
