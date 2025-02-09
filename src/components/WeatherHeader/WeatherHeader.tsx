@@ -1,12 +1,9 @@
-import { useMediaQuery, useTheme } from "@mui/material";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid2";
-import Skeleton, { SkeletonProps } from "@mui/material/Skeleton";
-import Stack from "@mui/material/Stack";
-import Typography, { TypographyProps } from "@mui/material/Typography";
 import dayjs from "dayjs";
 import { AnimatePresence, motion } from "motion/react";
-import { WeatherResponse } from "../../types";
+
+import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
+import { WeatherResponse } from "@/types";
 
 interface WeatherHeaderProps {
   weatherData?: { datetime: number } & WeatherResponse;
@@ -14,188 +11,127 @@ interface WeatherHeaderProps {
 }
 
 export const WeatherHeader = ({ loading, weatherData }: WeatherHeaderProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
-    <Grid
-      container
-      justifyContent="space-between"
-      width="100%"
-      columnSpacing={1}
-      position="relative"
-      sx={{
-        "& p": {
-          typography: {
-            md: "body1",
-            xs: "body2",
-          },
-        },
-      }}
-    >
-      <Grid size={3}>
-        <Stack gap={1}>
-          <Typography>Today's Weather</Typography>
-          {loading || !weatherData ? (
-            <>
-              <MotionSkeleton
-                sx={{
-                  typography: {
-                    md: "h1",
-                    xs: "h2",
-                  },
-                }}
-              />
-              <MotionSkeleton
-                sx={{
-                  typography: {
-                    md: "body1",
-                    xs: "body2",
-                  },
-                }}
-              />
-              <MotionSkeleton
-                sx={{
-                  typography: {
-                    md: "body1",
-                    xs: "body2",
-                  },
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <MotionTypography
-                variant={isMobile ? "h2" : "h1"}
-                sx={{
-                  fontWeight: "bold",
-                  color: "font.temp",
-                }}
-              >
-                {weatherData.main.temp}&deg;
-              </MotionTypography>
-              <MotionTypography>
-                H: {weatherData.main.temp_max}&deg; L:{" "}
-                {weatherData.main.temp_min}
-                &deg;
-              </MotionTypography>
-              <MotionTypography
-                sx={{
-                  fontWeight: "bold",
-                  color: "font.info",
-                }}
-              >
-                {weatherData.name}, {weatherData.sys.country}
-              </MotionTypography>
-            </>
-          )}
-        </Stack>
-      </Grid>
-      <Grid size={9}>
-        <Stack
-          direction={{
-            xs: "column-reverse",
-            md: "row",
-          }}
-          justifyContent={{
-            xs: "end",
-            md: "space-between",
-          }}
-          alignItems="end"
-          height="100%"
-          gap={1}
-          sx={{
-            color: "font.info",
-          }}
-        >
-          {loading || !weatherData ? (
-            <>
-              <MotionSkeleton
-                sx={{
-                  typography: {
-                    md: "body1",
-                    xs: "body2",
-                  },
-                }}
-              />
-              <MotionSkeleton
-                sx={{
-                  typography: {
-                    md: "body1",
-                    xs: "body2",
-                  },
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <MotionTypography>
-                {dayjs(weatherData.datetime).format("DD-MM-YYYY hh:mmA")}
-              </MotionTypography>
-              <MotionTypography>
-                Humidity: {weatherData.main.humidity}%
-              </MotionTypography>
-              <MotionTypography>
-                {weatherData.weather?.[0].main}
-              </MotionTypography>
-            </>
-          )}
-        </Stack>
-      </Grid>
+    <div className="grid grid-cols-12 justify-between w-full relative">
+      <div className="flex flex-col gap-1 col-span-3">
+        <p className="sm:text-sm md:text-base">Today's Weather</p>
+        {loading || !weatherData ? (
+          <>
+            <MotionSkeleton variant="logo" />
+            <MotionSkeleton />
+            <MotionSkeleton />
+          </>
+        ) : (
+          <>
+            <MotionTypography
+              className="sm:text-xl md:text-2xl"
+              // sx={{
+              //   color: "font.temp",
+              // }}
+            >
+              {weatherData.main.temp}&deg;
+            </MotionTypography>
+            <MotionTypography>
+              H: {weatherData.main.temp_max}&deg; L: {weatherData.main.temp_min}
+              &deg;
+            </MotionTypography>
+            <MotionTypography
+              className="font-bold"
+              // TODO
+              // sx={{
+              //   color: "font.info",
+              // }}
+            >
+              {weatherData.name}, {weatherData.sys.country}
+            </MotionTypography>
+          </>
+        )}
+      </div>
+      <div
+        className="flex col-span-9 sm:flex-col-reverse md:flex-row sm:justify-end md:justify-between items-end h-full gap-1"
+        // TODO
+        // sx={{
+        //   color: "font.info",
+        // }}
+      >
+        {loading || !weatherData ? (
+          <>
+            <MotionSkeleton />
+            <MotionSkeleton />
+          </>
+        ) : (
+          <>
+            <MotionTypography>
+              {dayjs(weatherData.datetime).format("DD-MM-YYYY hh:mmA")}
+            </MotionTypography>
+            <MotionTypography>
+              Humidity: {weatherData.main.humidity}%
+            </MotionTypography>
+            <MotionTypography>{weatherData.weather?.[0].main}</MotionTypography>
+          </>
+        )}
+      </div>
       <AnimatePresence>
         {weatherData && (
-          <Box
+          <motion.img
             src={
               weatherData.weather?.[0].main === "Clouds"
                 ? "/cloud.png"
                 : "/sun.png"
             }
             alt="Weather Icon"
-            sx={{
-              width: { md: "300px", xs: "200px" },
-              height: "auto",
-              position: "absolute",
-              top: { md: "-70%", sm: "-70%", xs: "-50%" },
-              right: { md: "-5%", sm: "-5%", xs: "-10%" },
-              maxWidth: "auto",
-            }}
+            className="sm:w-48 md:w-80 max-w-[auto] h-auto absolute sm:-top-1/2 md:-top-3/4 sm:-right-[10%] md:-right-[5%]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            component={motion.img}
           />
         )}
       </AnimatePresence>
-    </Grid>
+    </div>
   );
 };
 
-const MotionTypography = (props: TypographyProps) => {
+interface MotionTypographyProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const MotionTypography = ({ children, className }: MotionTypographyProps) => {
   return (
-    <motion.div
+    <motion.p
       key="text"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      className={cn("sm:text-sm md:text-base", className)}
     >
-      <Typography {...props}>{props.children}</Typography>
-    </motion.div>
+      {children}
+    </motion.p>
   );
 };
 
-const MotionSkeleton = (props: SkeletonProps) => {
+interface MotionSkeletonProps {
+  variant?: "text" | "logo";
+}
+
+const MotionSkeleton = ({ variant = "text" }: MotionSkeletonProps) => {
   return (
     <motion.div
       key="skeleton"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.3 } }}
-      style={{
-        width: "100%",
-      }}
+      className="w-full"
     >
-      <Skeleton variant="text" width="100%" {...props} />
+      <Skeleton
+        className={cn(
+          "w-full",
+          variant === "text"
+            ? "sm:text-sm md:text-base"
+            : "sm:text-xl md:text-2xl"
+        )}
+      />
     </motion.div>
   );
 };
