@@ -1,11 +1,11 @@
 import { Search, X } from "lucide-react";
 import { useState } from "react";
 
+import { Tooltip } from "@/components/Tooltip/Tooltip";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FormValues } from "@/types";
-import { Tooltip } from "../Tooltip/Tooltip";
-import { Input } from "../ui/input";
 
 interface SearchBarProps {
   onSearch: (formValues: FormValues) => void;
@@ -31,12 +31,22 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
       <SearchBarTextField label="City" name="city" />
       <SearchBarTextField label="Country" name="country" />
       <Tooltip title="Clear">
-        <Button variant="outline" size="icon" type="reset">
+        <Button
+          variant="outline"
+          size="icon"
+          type="reset"
+          className="aspect-square"
+        >
           <X />
         </Button>
       </Tooltip>
       <Tooltip title="Search">
-        <Button variant="outline" size="icon" type="submit">
+        <Button
+          variant="outline"
+          size="icon"
+          type="submit"
+          className="aspect-square"
+        >
           <Search />
         </Button>
       </Tooltip>
@@ -57,7 +67,7 @@ const SearchBarTextField = ({ label, name }: SearchBarTextFieldProps) => {
     <div className="relative w-full flex-grow">
       <label
         className={cn(
-          "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base transition-all",
+          "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base transition-all pointer-events-none",
           (focused || value) && "top-2 text-xs text-gray-700"
         )}
       >
