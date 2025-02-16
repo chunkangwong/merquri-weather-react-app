@@ -8,7 +8,7 @@ interface SearchHistoryProps {
 
 export const SearchHistory = ({ onSearch }: SearchHistoryProps) => {
   const searchHistoryItems = useSearchHistoryStore(
-    (state) => state.searchHistoryItems
+    (state) => state.searchHistoryItems,
   );
   const deleteAll = useSearchHistoryStore((state) => state.deleteAll);
   const deleteItem = useSearchHistoryStore((state) => state.deleteItem);

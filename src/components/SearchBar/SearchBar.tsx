@@ -25,7 +25,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
   return (
     <form
-      className="flex gap-1 items-center xs:w-[80%] md:w-1/2"
+      className="flex w-[80%] items-center gap-1 md:w-1/2"
       onSubmit={handleSubmit}
     >
       <SearchBarTextField label="City" name="city" />
@@ -35,7 +35,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
           variant="outline"
           size="icon"
           type="reset"
-          className="aspect-square"
+          className="aspect-square rounded-lg border-none bg-[rgb(108,64,181)] text-white dark:bg-[rgb(40,18,77)]"
         >
           <X />
         </Button>
@@ -45,7 +45,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
           variant="outline"
           size="icon"
           type="submit"
-          className="aspect-square"
+          className="aspect-square rounded-lg border-none bg-[rgb(108,64,181)] text-white dark:bg-[rgb(40,18,77)]"
         >
           <Search />
         </Button>
@@ -67,22 +67,22 @@ const SearchBarTextField = ({ label, name }: SearchBarTextFieldProps) => {
     <div className="relative w-full flex-grow">
       <label
         className={cn(
-          "absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-base transition-all pointer-events-none",
-          (focused || value) && "top-2 text-xs text-gray-700"
+          "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-base text-gray-500 transition-all",
+          (focused || value) && "top-2 text-xs text-gray-500",
         )}
       >
         {label}
       </label>
       <Input
-        className={cn(
-          "w-full bg-gray-100 pt-5 pb-2 px-3 rounded-md border-none outline-none",
-          "focus:ring-0 focus:border-b-2 focus:border-blue-500"
-        )}
+        className={
+          "w-full rounded-lg border-none bg-white bg-opacity-20 px-3 pb-2 pt-5 outline-none dark:bg-[rgba(26,26,26,0.5)] md:rounded-2xl"
+        }
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onChange={(e) => setValue(e.target.value)}
         value={value}
         name={name}
+        required
       />
     </div>
   );

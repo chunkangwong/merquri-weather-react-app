@@ -42,15 +42,9 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col items-center min-h-[100vh] py-2 bg-cover bg-center bg-scroll bg-no-repeat  bg-[url(bg-light.png)] dark:bg-[url(bg-dark.png)]">
+      <div className="flex min-h-[100vh] flex-col items-center bg-[url(bg-light.png)] bg-cover bg-scroll bg-center bg-no-repeat py-2 dark:bg-[url(bg-dark.png)]">
         <SearchBar onSearch={handleSearch} />
-        <div
-          className="flex flex-col items-center justify-center sm:w-1/2 md:w-[80%] p-4 mt-14 sm:rounded-md md:rounded-lg border-1 border-solid"
-          // sx={{
-          //   backgroundColor: "bg.panel",
-          //   borderColor: "border.panel",
-          // }}
-        >
+        <div className="mt-14 flex w-[80%] flex-col items-center justify-center rounded-md border border-solid border-white border-opacity-50 bg-white bg-opacity-20 p-4 dark:border-opacity-40 dark:bg-[rgba(26,26,26,0.3)] md:w-1/2 md:rounded-lg">
           <WeatherHeader
             loading={queryWeather.isPending}
             weatherData={queryWeather.data}

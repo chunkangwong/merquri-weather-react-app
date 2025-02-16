@@ -19,13 +19,8 @@ export const SearchHistoryList = ({
   onSearch,
 }: SearchHistoryListProps) => {
   return (
-    <div
-      className="flex flex-col gap-2 rounded-md p-2 w-full mt-2"
-      // sx={{
-      //   backgroundColor: "bg.panel",
-      // }}
-    >
-      <div className="flex justify-between items-center">
+    <div className="mt-2 flex w-full flex-col gap-2 rounded-md bg-white bg-opacity-20 p-4 dark:bg-[rgba(26,26,26,0.3)]">
+      <div className="flex items-center justify-between">
         <p>Search History</p>
         <Tooltip title="Delete All">
           <Button variant="outline" size="icon" onClick={onDeleteAll}>

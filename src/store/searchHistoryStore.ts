@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { SearchHistoryItemType } from "../types";
+
+import { SearchHistoryItemType } from "@/types";
 
 type BearStore = {
   searchHistoryItems: SearchHistoryItemType[];
@@ -25,13 +26,13 @@ export const useSearchHistoryStore = create<BearStore>()(
       deleteItem: (id) =>
         set({
           searchHistoryItems: get().searchHistoryItems.filter(
-            (item) => item.id !== id
+            (item) => item.id !== id,
           ),
         }),
     }),
     {
       name: "weather-search-history", // name of the item in the storage (must be unique)
       storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
-    }
-  )
+    },
+  ),
 );

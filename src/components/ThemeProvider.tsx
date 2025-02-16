@@ -1,4 +1,4 @@
-import { Moon } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { Tooltip } from "@/components/Tooltip/Tooltip";
@@ -31,7 +31,7 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
 
   useEffect(() => {
@@ -68,21 +68,14 @@ export function ThemeProvider({
       }}
     >
       {children}
-      <Tooltip title="Dark">
+      <Tooltip title={theme === "light" ? "Dark" : "Light"}>
         <Button
-          className="fixed bottom-20 right-20 text-white"
+          className="fixed bottom-4 right-4 bg-[rgb(108,64,181)] text-white hover:bg-white hover:bg-opacity-[0.08] dark:bg-[rgb(40,18,77)]"
           variant="outline"
           size="icon"
           onClick={handleToggle}
-          // TODO
-          // sx={{
-          //   backgroundColor: "bg.themeToggleButton",
-          //   "&:hover": {
-          //     backgroundColor: "rgba(255,255,255,0.08)",
-          //   },
-          // }}
         >
-          <Moon />
+          {theme === "light" ? <Moon /> : <Sun />}
         </Button>
       </Tooltip>
     </ThemeProviderContext.Provider>

@@ -12,9 +12,9 @@ interface WeatherHeaderProps {
 
 export const WeatherHeader = ({ loading, weatherData }: WeatherHeaderProps) => {
   return (
-    <div className="grid grid-cols-12 justify-between w-full relative">
-      <div className="flex flex-col gap-1 col-span-3">
-        <p className="sm:text-sm md:text-base">Today's Weather</p>
+    <div className="relative grid w-full grid-cols-12 justify-between gap-x-1">
+      <div className="col-span-3 flex flex-col gap-1">
+        <p className="text-sm md:text-base">Today's Weather</p>
         {loading || !weatherData ? (
           <>
             <MotionSkeleton variant="logo" />
@@ -23,37 +23,20 @@ export const WeatherHeader = ({ loading, weatherData }: WeatherHeaderProps) => {
           </>
         ) : (
           <>
-            <MotionTypography
-              className="sm:text-xl md:text-2xl"
-              // sx={{
-              //   color: "font.temp",
-              // }}
-            >
+            <MotionTypography className="text-7xl text-[rgb(108,64,181)] dark:text-white md:text-9xl">
               {weatherData.main.temp}&deg;
             </MotionTypography>
             <MotionTypography>
               H: {weatherData.main.temp_max}&deg; L: {weatherData.main.temp_min}
               &deg;
             </MotionTypography>
-            <MotionTypography
-              className="font-bold"
-              // TODO
-              // sx={{
-              //   color: "font.info",
-              // }}
-            >
+            <MotionTypography className="font-bold text-[rgb(102,102,102)] dark:text-white">
               {weatherData.name}, {weatherData.sys.country}
             </MotionTypography>
           </>
         )}
       </div>
-      <div
-        className="flex col-span-9 sm:flex-col-reverse md:flex-row sm:justify-end md:justify-between items-end h-full gap-1"
-        // TODO
-        // sx={{
-        //   color: "font.info",
-        // }}
-      >
+      <div className="col-span-9 flex h-full flex-col-reverse items-end justify-start gap-1 text-[rgb(102,102,102)] dark:text-white md:flex-row md:justify-between">
         {loading || !weatherData ? (
           <>
             <MotionSkeleton />
@@ -80,7 +63,7 @@ export const WeatherHeader = ({ loading, weatherData }: WeatherHeaderProps) => {
                 : "/sun.png"
             }
             alt="Weather Icon"
-            className="sm:w-48 md:w-80 max-w-[auto] h-auto absolute sm:-top-1/2 md:-top-3/4 sm:-right-[10%] md:-right-[5%]"
+            className="absolute -top-[75px] right-0 h-auto w-[150px] max-w-[auto] md:-top-[80px] md:w-[200px]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
@@ -105,7 +88,7 @@ const MotionTypography = ({ children, className }: MotionTypographyProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className={cn("sm:text-sm md:text-base", className)}
+      className={cn("text-sm md:text-base", className)}
     >
       {children}
     </motion.p>

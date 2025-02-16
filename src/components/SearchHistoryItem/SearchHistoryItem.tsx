@@ -15,12 +15,6 @@ interface SearchHistoryItemProps {
 
 dayjs.extend(relativeTime);
 
-// TODO
-// const iconButtonStyle: SxProps<Theme> = {
-//   backgroundColor: "bg.itemIconButton",
-//   borderColor: "border.itemIconButton",
-// };
-
 export const SearchHistoryItem = ({
   searchHistoryItem: { city, country, datetime, id },
   onDelete,
@@ -39,24 +33,14 @@ export const SearchHistoryItem = ({
 
   return (
     <motion.div
-      className="flex w-full items-center gap-1 px-2 py-1 rounded-md"
-      // TODO
-      // sx={{
-      //   backgroundColor: "bg.item",
-      // }}
+      className="flex w-full items-center gap-1 rounded-md bg-white bg-opacity-40 px-4 py-2 dark:bg-[rgba(26,26,26,0.5)]"
       layout
     >
-      <div className="flex w-full sm:flex-col md:flex-row mr-auto">
-        <p className="sm:text-sm md:text-base">
+      <div className="mr-auto flex w-full flex-col items-start gap-1 md:flex-row md:items-center">
+        <p className="text-sm md:text-base">
           {city}, {country}
         </p>
-        <p
-          className="sm:text-sm md:text-base md:mr-auto"
-          // TODO
-          // sx={{
-          //   color: "font.itemInfo",
-          // }}
-        >
+        <p className="text-xs text-black dark:text-white dark:text-opacity-50 md:mr-auto md:text-sm">
           {dayjs(datetime).diff(dayjs(), "day") >= 2
             ? dayjs(datetime).format("DD-MM-YYYY hh:mmA")
             : dayjs(datetime).fromNow()}
@@ -65,7 +49,7 @@ export const SearchHistoryItem = ({
       <div className="flex gap-1">
         <Tooltip title="Search">
           <Button
-            className="border-2"
+            className="border-2 border-white bg-white dark:border-opacity-40 dark:bg-transparent"
             variant="outline"
             size="icon"
             onClick={handleSearch}
@@ -75,7 +59,7 @@ export const SearchHistoryItem = ({
         </Tooltip>
         <Tooltip title="Delete">
           <Button
-            className="border-2"
+            className="border-2 border-white bg-white dark:border-opacity-40 dark:bg-transparent"
             variant="outline"
             size="icon"
             onClick={handleDelete}
